@@ -134,33 +134,36 @@ public class EcuConnection implements SerialPortEventListener
 	
 	public byte[] MessageGenerator(byte...args)
 	{
-		int sizeArgs = args.length;		
-		int sizeArray = 4+sizeArgs;
+		System.out.println("length: " + args.length);
+		int sizeArgs = args.length;
+		
+		int sizeArray = Constants.LengthPackageWithoutMessageForThreeByte + sizeArgs;
 		
 		byte[] result = new byte[sizeArray];
-		byte fmtByte = (byte) 0x10000000;	
-		
+		result[0] = (byte)(sizeArgs + Constants.DefaultFmtToThreeByte);
+		result[1] = Constants.DefualtTgt;
+		result[2] = Constants.DefaultSrc;
+	
 		int i = 3;
-		byte sumMessage = (byte) 0x0;
-		
 		for(byte arg : args)
 		{
-			sumMessage += arg;
 			result[i] = arg;
 			i++;
 		}
 		
-		result[0] = sumMessage;
-		result[1] = (byte)0x10;
-		result[2] = (byte)0xF1;
-		
-		byte cs = (byte)0x0;
+		/*byte cs = (byte)0x0;
 		for(byte b : result)
 		{
 			cs += b;
+		}*/
+		
+		byte sum = 0x0;
+		for(int j = 0; j < (result.length - 1); ++j)
+		{
+			sum ^= result[j];
 		}
 		
-		result[sizeArray - 1] = cs;	
+		result[sizeArray - 1] = sum;	
 		return result;
 	}
 	

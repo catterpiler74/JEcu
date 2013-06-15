@@ -13,13 +13,12 @@ public class Main {
 			EcuConnection connection = new EcuConnection("COM1");
 
 			byte[] a = connection.MessageGenerator((byte)0x81);
-			byte[] b = connection.MessageGenerator((byte)0x82);
-
-			/*String str = connection.BytesToString(b);
+			
+			String str = connection.BytesToString(a);
 			System.out.println(str);
-			System.out.println(java.lang.Integer.toHexString((byte)0x82 & 63));
-*/
-			connection.Open();
+			System.out.println("8110F18103");
+
+//			connection.Open();
 
 			if (connection.GetConnectionStatus() == true) {
 		
