@@ -131,4 +131,46 @@ public class EcuConnection implements SerialPortEventListener
 			e.printStackTrace();
 		}
 	}
+	
+	public byte[] MessageGenerator(byte...args)
+	{
+		int sizeArgs = args.length;		
+		int sizeArray = 4+sizeArgs;
+		
+		byte[] result = new byte[sizeArray];
+		byte fmtByte = (byte) 0x10000000;	
+		
+		int i = 3;
+		byte sumMessage = (byte) 0x0;
+		
+		for(byte arg : args)
+		{
+			sumMessage += arg;
+			result[i] = arg;
+			i++;
+		}
+		
+		result[0] = sumMessage;
+		result[1] = (byte)0x10;
+		result[2] = (byte)0xF1;
+		
+		byte cs = (byte)0x0;
+		for(byte b : result)
+		{
+			cs += b;
+		}
+		
+		result[sizeArray - 1] = cs;	
+		return result;
+	}
+	
+	public String BytesToString(byte[] value)
+	{	
+		StringBuffer result = new StringBuffer();
+		for(byte val : value)
+		{
+			result.append(String.format("%02X", val));
+		}
+		return result.toString();
+	}
 }
