@@ -151,16 +151,10 @@ public class EcuConnection implements SerialPortEventListener
 			i++;
 		}
 		
-		/*byte cs = (byte)0x0;
-		for(byte b : result)
-		{
-			cs += b;
-		}*/
-		
 		byte sum = 0x0;
 		for(int j = 0; j < (result.length - 1); ++j)
 		{
-			sum ^= result[j];
+			sum += result[j];
 		}
 		
 		result[sizeArray - 1] = sum;	

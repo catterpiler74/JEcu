@@ -7,8 +7,18 @@ import javax.xml.bind.DatatypeConverter;
  */
 public class DataCommunication 
 {
-
-	public String _startCommunication = "8110F18103";
+	/*
+	 * startCommunication
+	 */
+	public static final byte STC = (byte) 0x81;
+	
+	/*
+	 * stopCommunication
+	 */
+	public static final byte SPC = (byte) 0x82;
+	
+	
+	private String _startCommunication = "8110F18103";
 	private String _stopCommunication = "8110F18204";
 	private String _startDiagnosticSessionLow = "8310F110810A1F";
 	

@@ -12,7 +12,7 @@ public class Main {
 
 			EcuConnection connection = new EcuConnection("COM1");
 
-			byte[] a = connection.MessageGenerator((byte)0x81);
+			byte[] a = connection.MessageGenerator(DataCommunication.SPC);
 			
 			String str = connection.BytesToString(a);
 			System.out.println(str);
