@@ -38,14 +38,20 @@ public class BaseHelper
 			i++;
 		}
 		
-		byte sum = 0x0;
-		for(int j = 0; j < (result.length - 1); ++j)
-		{
-			sum += result[j];
-		}
-		
+		byte sum = this.GetChecksum(result);		
 		result[sizeArray - 1] = sum;	
 		return result;
+	}
+	
+	private byte GetChecksum(byte[] data)
+	{
+		byte sum = 0x0;
+		for(int j = 0; j < (data.length - 1); ++j)
+		{
+			sum += data[j];
+		}
+		
+		return sum;
 	}
 	
 	/*
