@@ -2,6 +2,8 @@ package JEcuService;
 
 public class Constants 
 {
+	public static final String StringEmpty = "";
+	
 	/*
 	 * максимальная длина сообщения для пакета с 3-x байтовым заголовком
 	 */

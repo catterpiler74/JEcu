@@ -7,25 +7,19 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		try {
-			DataCommunication com = new DataCommunication();
-			byte[] sender = com.getStartCommunication();
-
 			EcuConnection connection = new EcuConnection("COM1");
+			BaseHelper helper = new BaseHelper();
 
-			byte[] a = connection.MessageGenerator(DataCommunication.SPC);
-			
-			String str = connection.BytesToString(a);
-			System.out.println(str);
-			System.out.println("8110F18103");
-
-//			connection.Open();
+			byte[] a = helper.MessageGenerator(DataCommunication.STC);
+			byte[] b = helper.MessageGenerator(DataCommunication.SPC);
+			connection.Open();
 
 			if (connection.GetConnectionStatus() == true) {
 		
-				connection.Send(com.getStartCommunication());
+				connection.Send(a);
 
 				Thread.sleep(1000);
-				connection.Send(com.getStopCommunication());
+				connection.Send(b);
 				// connection.Close();
 			}
 		} catch (InterruptedException e) {

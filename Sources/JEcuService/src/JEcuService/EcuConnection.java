@@ -76,37 +76,9 @@ public class EcuConnection implements SerialPortEventListener
             try 
             {
                 byte[] data = _serialPort.readBytes(event.getEventValue());
-               
-                System.out.println("Data:" + _helper.BytesToString(data));
                 
-                int byteHeader = (int)(data[0] & 0xff);                
-                int lengthHeader = 0;
-                if(byteHeader == 128)
-                {
-                	lengthHeader = 4;
-                }
-                else
-                {
-                	lengthHeader = 3;
-                }
-                
-                System.out.println("Length header: " + lengthHeader);
-                
-                int lengthMessage = (int)(data[0] & 63);
-                System.out.println("Length message: " + lengthMessage);
-                
-                /*BitSet bitSet = new BitSet();
-                for(byte b : data)
-                {
-                	String str = String.format("%s : %s", b, (b & 0xff));
-                	System.out.println(str);
-                }
-                
-                BitSet fmtBits = new BitSet(data[0] & 0xff);*/
-                
-               // System.out.println(data[0] & 0xff);
-               
-                System.out.println();
+                String message = _helper.GetDataMessage(data);
+                System.out.println("Message: " + message);
                 
                 //this.Close();
             }
@@ -130,44 +102,5 @@ public class EcuConnection implements SerialPortEventListener
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	public byte[] MessageGenerator(byte...args)
-	{
-		System.out.println("length: " + args.length);
-		int sizeArgs = args.length;
-		
-		int sizeArray = Constants.LengthPackageWithoutMessageForThreeByte + sizeArgs;
-		
-		byte[] result = new byte[sizeArray];
-		result[0] = (byte)(sizeArgs + Constants.DefaultFmtToThreeByte);
-		result[1] = Constants.DefualtTgt;
-		result[2] = Constants.DefaultSrc;
-	
-		int i = 3;
-		for(byte arg : args)
-		{
-			result[i] = arg;
-			i++;
-		}
-		
-		byte sum = 0x0;
-		for(int j = 0; j < (result.length - 1); ++j)
-		{
-			sum += result[j];
-		}
-		
-		result[sizeArray - 1] = sum;	
-		return result;
-	}
-	
-	public String BytesToString(byte[] value)
-	{	
-		StringBuffer result = new StringBuffer();
-		for(byte val : value)
-		{
-			result.append(String.format("%02X", val));
-		}
-		return result.toString();
-	}
+	}	
 }
