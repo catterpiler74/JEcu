@@ -3,10 +3,9 @@ package JEcuService;
 public class BaseHelper 
 {
 	/*
-	 * ѕреобразовать массив байтов в строку
-	 * 
-	 * @param value - массив байтов
-	 * @return ¬озвращает преобразованный в строку массив байтов
+	 * Convert array bytes to string 
+	 * @param value - array bytes
+	 * @return Get string with hex data from array bytes
 	 */
 	public String BytesToString(byte[] value)
 	{	
@@ -19,7 +18,7 @@ public class BaseHelper
 	}
 	
 	/*
-	 * √енератор сообщени€
+	 * Package message generator
 	 */
 	public byte[] MessageGenerator(byte...args)
 	{
@@ -43,6 +42,9 @@ public class BaseHelper
 		return result;
 	}
 	
+	/*
+	 * Get checksum package message
+	 */
 	private byte GetChecksum(byte[] data)
 	{
 		byte sum = 0x0;
@@ -55,7 +57,7 @@ public class BaseHelper
 	}
 	
 	/*
-	 * ѕолучить данные сообщени€
+	 * Get data input package message
 	 */
 	public String GetDataMessage(byte[] message)
 	{

@@ -23,13 +23,16 @@ public class EcuConnection implements SerialPortEventListener
 		
 	}
 	
+	/*
+	 * Return boolean connection status
+	 */
 	public boolean GetConnectionStatus()
 	{
 		return _isConnect;
 	}
 	
 	/*
-	 * Открыть соединение с COM портом
+	 * Open connection with port
 	 */
 	public void Open()
 	{
@@ -53,7 +56,7 @@ public class EcuConnection implements SerialPortEventListener
 	}
 	
 	/*
-	 * Закрыть соединение с COM портом
+	 * Close connection with port
 	 */
 	public void Close()
 	{
@@ -90,7 +93,7 @@ public class EcuConnection implements SerialPortEventListener
 	}
 	
 	/*
-	 * Отправка COM порту массива байтов
+	 * Send array bytes
 	 */
 	public void Send(byte[] bytes)
 	{
