@@ -11,7 +11,7 @@ public class Main {
 			BaseHelper helper = new BaseHelper();
 
 			byte[] a = helper.MessageGenerator(TypeHeader.ThreeBytes, DataCommunication.STC);
-			byte[] b = helper.MessageGenerator(TypeHeader.FourBytes, DataCommunication.SPC);
+			byte[] b = helper.MessageGenerator(TypeHeader.ThreeBytes, DataCommunication.SPC);
 			connection.Open();
 
 			if (connection.GetConnectionStatus() == true) {

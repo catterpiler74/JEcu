@@ -91,16 +91,11 @@ public class BaseHelper
         
         StringBuffer result = new StringBuffer();
         
-        if(lengthHeader == 3)
+        for(int i = lengthHeader; i < (message.length - 1); i++)
         {
-        	for(int i = lengthHeader; i < (message.length - 1); i++)
-        	{
-        		result.append(String.format("%02X",  message[i]));
-        	}
-        	
-        	return result.toString();
+        	result.append(String.format("%02X",  message[i]));
         }
-        
-        return Constants.StringEmpty;
+
+        return result.toString();
 	}
 }
