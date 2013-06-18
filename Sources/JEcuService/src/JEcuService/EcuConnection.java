@@ -1,7 +1,5 @@
 package JEcuService;
 
-import java.util.*;
-
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;

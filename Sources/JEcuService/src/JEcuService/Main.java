@@ -10,8 +10,8 @@ public class Main {
 			EcuConnection connection = new EcuConnection("COM1");
 			BaseHelper helper = new BaseHelper();
 
-			byte[] a = helper.MessageGenerator(DataCommunication.STC);
-			byte[] b = helper.MessageGenerator(DataCommunication.SPC);
+			byte[] a = helper.MessageGenerator(TypeHeader.ThreeBytes, DataCommunication.STC);
+			byte[] b = helper.MessageGenerator(TypeHeader.FourBytes, DataCommunication.SPC);
 			connection.Open();
 
 			if (connection.GetConnectionStatus() == true) {

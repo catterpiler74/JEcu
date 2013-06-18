@@ -20,21 +20,37 @@ public class BaseHelper
 	/*
 	 * Package message generator
 	 */
-	public byte[] MessageGenerator(byte...args)
+	public byte[] MessageGenerator(TypeHeader typeHeader, byte...args)
 	{
 		int sizeArgs = args.length;
-		int sizeArray = Constants.LengthPackageWithoutMessageForThreeByte + sizeArgs;
+		int sizeArray = 0;
+		byte[] result = null;
 		
-		byte[] result = new byte[sizeArray];
-		result[0] = (byte)(sizeArgs + Constants.DefaultFmtToThreeByte);
+		//значения переменных для трех байт
+		if(typeHeader == TypeHeader.ThreeBytes)
+		{
+			sizeArray = Constants.LengthPackageWithoutMessageForThreeByte + sizeArgs;
+			result = new byte[sizeArray];
+			result[0] = (byte)(sizeArgs + Constants.DefaultFmtToThreeByte);		
+		}
+		
+		//значения переменных для четрех байт
+		if(typeHeader == TypeHeader.FourBytes)
+		{
+			sizeArray = Constants.LengthPackageWithoutMessageForFourByte + sizeArgs;
+			result = new byte[sizeArray];
+			result[0] = Constants.DefaultFmtToThreeByte;	
+			result[3] = (byte)sizeArgs;			
+		}		
+		
 		result[1] = Constants.DefualtTgt;
 		result[2] = Constants.DefaultSrc;
-	
-		int i = 3;
+		
+		int indexDataBytes = typeHeader.GetValue();
 		for(byte arg : args)
 		{
-			result[i] = arg;
-			i++;
+			result[indexDataBytes] = arg;
+			indexDataBytes++;
 		}
 		
 		byte sum = this.GetChecksum(result);		
